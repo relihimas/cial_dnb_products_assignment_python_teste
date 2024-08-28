@@ -113,8 +113,9 @@ The main funciton will redirect the actions based on the HTTP Method requested:
           CREATE TABLE stock (
           id SERIAL PRIMARY KEY,
           stock TEXT NOT NULL,
-          amount INTEGER NOT NULL,
-          created_on DATE NOT NULL
+          amount NUMERIC(10, 2) NOT NULL,
+          created_on DATE NOT NULL,
+          updated_at DATE NOT NULL
             );
 
 - If the insert was successfull you will received a 201 code.
