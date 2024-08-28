@@ -21,7 +21,7 @@ And then, run it:
 
     docker run -p 8000:8000 stock-api
 
-PS: It's preferable to deploy this app into a linux operational system.
+PS: It's preferable to deploy this app into a linux operational system. Also, if you do not have the Docker installed in your instance, please, follow these instructions: https://docs.docker.com/engine/install/ubuntu/.
 
 ## How it works?
 
