@@ -120,3 +120,15 @@ The main funciton will redirect the actions based on the HTTP Method requested:
 - If the insert was successfull you will received a 201 code.
 
 ## Unit Tests
+
+On the folder 'tests' you will find performed tests to check our functionality.
+
+- test_get_stock_success: Tests that the GET /stock/<stock_symbol> endpoint returns the correct stock data when the symbol is valid. It simulates a successful response from the main function with stock data and checks if the response contains the expected stock information.
+
+- test_get_stock_not_found: Tests that the GET /stock/<stock_symbol> endpoint returns a 404 error with an appropriate error message when the stock symbol is not found. It simulates a failure response from the main function and verifies the error message in the response.
+
+- test_post_stock_success: Tests that the POST /stock/<stock_symbol> endpoint successfully adds the specified amount of stock and returns a confirmation message. It simulates a successful response from the main function and checks the response for the correct success message.
+
+- test_post_stock_missing_amount: Tests the POST /stock/<stock_symbol> endpoint when the request JSON is missing the amount field. It verifies that the endpoint returns a 400 error with a message indicating that the amount must be provided.
+
+- test_post_stock_empty_amount: Tests the POST /stock/<stock_symbol> endpoint when the amount field is present but empty. It ensures that the endpoint returns a 404 error with a message indicating that a valid amount value must be provided.
