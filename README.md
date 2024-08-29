@@ -114,8 +114,8 @@ The main funciton will redirect the actions based on the HTTP Method requested:
           id SERIAL PRIMARY KEY,
           stock TEXT NOT NULL,
           amount NUMERIC(10, 2) NOT NULL,
-          created_on DATETIME NOT NULL,
-          updated_at DATETIME NOT NULL
+          created_on TIMESTAMP NOT NULL,
+          updated_at TIMESTAMP NOT NULL
             );
 
 - If the insert was successfull you will received a 201 code.
