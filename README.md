@@ -19,7 +19,7 @@ First, start the application by building the image:
 
 And then, run it:
 
-    docker run -p 8000:8000 stock-api
+    docker run -d -p 8000:8000 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=cial --name cialcontainer stock-api
 
 PS: It's preferable to deploy this app into a linux operational system. Also, if you do not have the Docker installed in your instance, please, follow these instructions: https://docs.docker.com/engine/install/ubuntu/.
 
