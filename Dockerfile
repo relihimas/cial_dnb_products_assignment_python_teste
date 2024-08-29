@@ -20,9 +20,7 @@ RUN apt-get install -y postgresql postgresql-contrib
 
 # Clone the GitHub repository
 RUN git clone https://github.com/relihimas/cial_dnb_products_assignment_python_teste.git /app
-
-RUN chmod +x /db_init/init_db.sh
-    
+  
 # Expose the PostgreSQL port
 EXPOSE 8000
 

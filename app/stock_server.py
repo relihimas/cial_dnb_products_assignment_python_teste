@@ -3,6 +3,7 @@ from flask_caching import Cache
 from stock_log import definelog
 from stock_main import main
 import constants as cnt
+import subprocess
 
 logger = definelog()
 
@@ -45,7 +46,16 @@ def update_stock(stock_symbol):
         return jsonify({'error': 'An internal error occurred'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=False, port=cnt.port)
+
+    try:
+        result = subprocess.run(['service', 'postgresql', 'start'], check=True, text=True, capture_output=True)
+        print("PostgreSQL iniciado com sucesso!")
+        print(result.stdout)
+    except subprocess.CalledProcessError as e:
+        print("Erro ao iniciar o PostgreSQL:")
+        print(e.stderr)
+
+    app.run(debug=False, port=cnt.port_server)
 
 
 
