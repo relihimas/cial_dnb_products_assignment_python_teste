@@ -56,7 +56,7 @@ if __name__ == '__main__':
         print(e.stderr)
     
     print("Initializing - version 3.0")
-    app.run(debug=False, port=cnt.port_server)
+    app.run(debug=False, host='0.0.0.0', port=cnt.port_server)
 
 
 
