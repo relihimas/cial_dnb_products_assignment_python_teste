@@ -54,7 +54,8 @@ if __name__ == '__main__':
     except subprocess.CalledProcessError as e:
         print("Erro ao iniciar o PostgreSQL:")
         print(e.stderr)
-
+    
+    print("Initializing - version 3.0")
     app.run(debug=False, port=cnt.port_server)
 
 
