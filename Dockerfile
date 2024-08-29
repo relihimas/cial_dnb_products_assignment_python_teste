@@ -1,31 +1,37 @@
-# Usar a imagem base oficial do Python 3.10
-FROM python:3.10-slim
+# Use Ubuntu latest as the base image
+FROM ubuntu:latest
 
-# Instalar Git e PostgreSQL
-RUN apt-get update && apt-get install -y \
+COPY init.sql /docker-entrypoint-initdb.d/
+
+# Update the package list and install dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    software-properties-common \
+    wget \
+    curl \
     git \
-    postgresql \
-    postgresql-contrib
+    lsb-release \
+    gnupg
 
-# Definir o diretório de trabalho
-WORKDIR /app
+# Python 3.11
+RUN add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get install -y python3.11 python3.11-venv python3.11-dev
 
-# Clonar o repositório do GitHub
-RUN git clone https://github.com/relihimas/cial_dnb_products_assignment_python_teste .
+# PostgreSQL
+RUN apt-get install -y postgresql postgresql-contrib
 
-# Instalar as dependências
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Clone the GitHub repository
+RUN git clone https://github.com/relihimas/cial_dnb_products_assignment_python_teste /app
 
-# Configurar PostgreSQL
-RUN service postgresql start && \
-    sudo -u postgres psql -c "CREATE DATABASE stock_db;" && \
-    sudo -u postgres psql -c "CREATE USER stock_user WITH ENCRYPTED PASSWORD 'password';" && \
-    sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE stock_db TO stock_user;" && \
-    sudo -u postgres psql -c "CREATE TABLE stock (id SERIAL PRIMARY KEY, stock TEXT NOT NULL, amount INTEGER NOT NULL, created_on DATE NOT NULL);"
-
-# Expor a porta que a aplicação Flask irá usar
+# Set up the PostgreSQL service
+RUN service postgresql start
+    
+# Expose the PostgreSQL port
 EXPOSE 8000
 
-# Definir o comando padrão para executar a aplicação
-CMD ["nohup","postgresql","start","&&", "python3", "stock_server.py"]
+# Set the working directory
+WORKDIR /app
+
+# Start PostgreSQL when the container starts
+CMD ["nohup","python3","stock_server.py"]

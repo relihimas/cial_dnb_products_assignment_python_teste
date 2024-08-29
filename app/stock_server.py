@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_caching import Cache
 from stock_log import definelog
 from stock_main import main
+import constants as cnt
 
 logger = definelog()
 
@@ -44,7 +45,7 @@ def update_stock(stock_symbol):
         return jsonify({'error': 'An internal error occurred'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=False, port=5000)
+    app.run(debug=False, port=cnt.port)
 
 
 
