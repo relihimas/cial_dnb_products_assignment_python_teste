@@ -1,0 +1,37 @@
+openapi: 3.0.0
+info:
+  title: API do Stock Model - CIAL Dun & Bradstreet
+  version: 1.0.0
+paths:
+  /stock/{stock_symbol}:
+    parameters:
+      - name: stock_symbol
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Returns the stock data for the given symbol.
+      responses:
+        '200':
+          description: Dados do StockModel retornados com sucesso
+        '404':
+          description: StockModel não encontrado
+    post:
+      summary: Update the stock entity with the purchased amount.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/amountSchema'
+      responses:
+        '201':
+          description: Validado
+components:
+  schemas:
+    amountSchema:
+      type: object
+      properties:
+        amount:
+          type: number
