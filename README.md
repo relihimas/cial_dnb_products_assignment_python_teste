@@ -1,5 +1,8 @@
 # cial_dnb_products_assignment_python_teste
 
+![image](https://github.com/user-attachments/assets/3285b436-cc80-4752-a97b-f4a5ce8f1a98)
+
+
 # Stocks REST API
 This project is a Python-based REST API for retrieving and managing stock data. The API fetches stock information from external sources such as the Polygon.io API and scrapes data from MarketWatch. The application is designed to be efficient, utilizing caching and a PostgreSQL database for persistence.
 
