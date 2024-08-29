@@ -1,8 +1,6 @@
 # Use Ubuntu latest as the base image
 FROM ubuntu:latest
 
-COPY init.sql /docker-entrypoint-initdb.d/
-
 # Update the package list and install dependencies
 RUN apt-get update && \
     apt-get install -y \
@@ -13,25 +11,19 @@ RUN apt-get update && \
     lsb-release \
     gnupg
 
-# Python 3.11
-RUN add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get install -y python3.11 python3.11-venv python3.11-dev
+RUN apt-get install -y python3.10 python3-pip python3-flask playwright
+
+RUN pip install flask_caching requests playwright psycopg2-binary --break-system-packages
 
 # PostgreSQL
 RUN apt-get install -y postgresql postgresql-contrib
 
 # Clone the GitHub repository
-RUN git clone https://github.com/relihimas/cial_dnb_products_assignment_python_teste /app
+RUN git clone https://github.com/relihimas/cial_dnb_products_assignment_python_teste.git /app
 
-# Set up the PostgreSQL service
-RUN service postgresql start
+RUN chmod +x /db_init/init_db.sh
     
 # Expose the PostgreSQL port
 EXPOSE 8000
 
-# Set the working directory
-WORKDIR /app
-
-# Start PostgreSQL when the container starts
-CMD ["nohup","python3","stock_server.py"]
+CMD ["/app/app/init_db.sh", "&&", "nohup", "python3", "/app/app/stock_server.py"]
