@@ -55,7 +55,7 @@ if __name__ == '__main__':
         print("Erro ao iniciar o PostgreSQL:")
         print(e.stderr)
     
-    print("Initializing - version 3.0")
+    print("Initializing - version 4.0")
     app.run(debug=False, host='0.0.0.0', port=cnt.port_server)
 
 
