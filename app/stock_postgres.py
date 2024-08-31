@@ -25,6 +25,25 @@ def database_connection():
         logger.error(e)
         return e
 
+def create_stock():
+
+    try:
+
+        cur, conn = database_connection()
+
+        logger.info("Creating Stock table")
+        
+        create_query = sql.SQL(cnt.create_query)
+        cur.execute(create_query)
+        cur.commit()
+
+        cur.close()
+        conn.close()
+    
+    except Exception as e:
+        return None
+
+
 def check_stock(stock):
 
     try:
@@ -109,6 +128,8 @@ def database_operation(stock, amount):
         logger.info("Connection to Postgres Database successful")
 
         stock = stock.upper()
+
+        check_tabela = create_stock()
 
         valor = check_stock(stock)
 
