@@ -27,6 +27,10 @@ def stock_martketwatch(stock):
                 "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8", "Priority": "u=0, i"}
 
         resp = session.get(url, headers=header, verify=False)
+        logger.info(f"Marketwatch extraction status code - {resp.status_code}")
+        if resp.status_code != 200:
+            return False, "It was not possible extract data from Marketwatch - Please, try again later."
+        
         resp = pq(resp.text)
 
         logger.info(resp)

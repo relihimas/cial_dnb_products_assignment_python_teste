@@ -59,7 +59,7 @@ if __name__ == '__main__':
         print("Erro ao iniciar o PostgreSQL:")
         print(e.stderr)
     
-    print("Initializing - version 6.0")
+    print("Initializing - version 7.0")
     app.run(debug=True, host='0.0.0.0', port=cnt.port_server)
 
 
