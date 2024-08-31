@@ -22,9 +22,11 @@ First, start the application by building the image:
 
 And then, run it:
 
-    docker run -d -p 8000:8000 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=cial --name cialcontainer stock-api
+    docker run -d -p 8000:8000 --name cialcontainer stock-api
 
-PS: It's preferable to deploy this app into a linux operational system. Also, if you do not have the Docker installed in your instance, please, follow these instructions: https://docs.docker.com/engine/install/ubuntu/.
+PS: It's preferable to deploy this app into a linux operational system. 
+
+Also, if you do not have the Docker installed in your instance, please, follow these instructions: https://docs.docker.com/engine/install/ubuntu/.
 
 ## How it works?
 
@@ -38,7 +40,7 @@ Use below endpoints to make your requests:
 
   - curl example:
 
-        curl --location 'http://127.0.0.1:8000/stock/aapl' \
+        curl --location 'http://<ip>:8000/stock/<stock>' \
         --data ''
     
 ### [POST] /stock/{stock_symbol}
@@ -46,7 +48,7 @@ Use below endpoints to make your requests:
 
   - curl example
 
-        curl --location 'http://127.0.0.1:8000/stock/aapl' \
+        curl --location 'http://<ip>:8000/stock/<stock>' \
         --header 'Content-Type: application/json' \
         --data '{"amount": 10}'
 
