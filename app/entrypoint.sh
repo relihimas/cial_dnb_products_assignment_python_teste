@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e
 
-# Start PostgreSQL service
-service postgresql start
-
-# Run PostgreSQL commands
 su -u postgres psql <<EOF
 ALTER USER postgres PASSWORD 'postgres';
 CREATE DATABASE cial;
@@ -18,11 +14,6 @@ CREATE TABLE stock (
 );
 EOF
 
-# Create backup directory if not exists
 mkdir -p /var/backups/postgres
 
-# Backup database
 pg_dump cial > /var/backups/postgres/cial_backup.sql
-
-# Start the Flask application
-nohup python3 /app/app/stock_server.py 

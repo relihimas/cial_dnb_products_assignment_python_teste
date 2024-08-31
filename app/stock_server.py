@@ -49,14 +49,18 @@ if __name__ == '__main__':
 
     try:
         result = subprocess.run(['service', 'postgresql', 'start'], check=True, text=True, capture_output=True)
-        print("PostgreSQL iniciado com sucesso!")
+        print("PostgreSQL started with sucess!")
         print(result.stdout)
+
+        shrun = subprocess.run(['bash', "./entrypoint.sh"], capture_output=True, text=True)
+        print("Entrypoint run!")
+
     except subprocess.CalledProcessError as e:
         print("Erro ao iniciar o PostgreSQL:")
         print(e.stderr)
     
     print("Initializing - version 5.0")
-    app.run(debug=False, host='0.0.0.0', port=cnt.port_server)
+    app.run(debug=True, host='0.0.0.0', port=cnt.port_server)
 
 
 
