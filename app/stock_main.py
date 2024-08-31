@@ -2,6 +2,7 @@ from stock_polygon import polygon
 from stock_marketwatch import stock_martketwatch
 from stock_postgres import database_operation
 from stock_log import definelog
+from stock_postgres import check_stock
 from datetime import datetime
 import re
 
@@ -22,20 +23,24 @@ def get(stock):
         if not dados_polygon[0]:
             raise Exception(dados_polygon[1])
 
-        # dados_marketwatch = stock_martketwatch(stock)
+        dados_marketwatch = stock_martketwatch(stock)
 
-        # if not dados_marketwatch:
-        #     raise Exception(dados_marketwatch)
-
-        dados_marketwatch = "TESTE"
-
+        if not dados_marketwatch[0]:
+            raise Exception(dados_marketwatch[1])
+        
+        dados_amount = check_stock(stock)
+        if dados_amount == None:
+            dados_amount = 0
+        else:
+            dados_amount = dados_amount[0]
+            
         stock = {
             "status": str(dados_polygon[1]['status']),
-            "purchased_amount": 0,
+            "purchased_amount": float(dados_amount),
             "purchased_status": "completed",
             "request_data": datetime.strptime(dados_polygon[1]['from'], "%Y-%m-%d").strftime('%Y-%m-%d'), 
             "company_code": str(dados_polygon[1]['symbol']),
-            "company_name": dados_marketwatch,
+            "company_name": dados_marketwatch[1]['company_name'],
             "stock_values": {
                 "open": float(dados_polygon[1]['open']),
                 "high": float(dados_polygon[1]['high']),
@@ -44,14 +49,14 @@ def get(stock):
             }
             ,
             "performance_data": {
-                "five_days": float(1.00),
-                "one_month": float(1.00),
-                "three_months": float(1.00),
-                "year_to_date": float(1.00),
-                "one_year": float(1.00)
+                "five_days": float(dados_marketwatch[1]['five_days']),
+                "one_month": float(dados_marketwatch[1]['one_month']),
+                "three_months": float(dados_marketwatch[1]['three_months']),
+                "year_to_date": float(dados_marketwatch[1]['year_to_date']),
+                "one_year": float(dados_marketwatch[1]['one_year'])
             },
             "competitors": [
-                dados_marketwatch
+                dados_marketwatch[1]['competitors']
             ]
         }
 
@@ -85,11 +90,11 @@ def main(method, stock, amount):
     try:
 
         stock = stock.upper()
-
+        
         validacao = valida_stock(stock)
         if not validacao:
             raise Exception("Stock name is not valid.")
-    
+
         logger.info('Starting main function')
         if method == 'get':
            logger.info('Get process')

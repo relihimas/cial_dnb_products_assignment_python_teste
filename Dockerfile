@@ -11,17 +11,15 @@ RUN apt-get update && \
     lsb-release \
     gnupg
 
-RUN apt-get install -y python3.10 python3-pip python3-flask playwright
-
-RUN pip install flask_caching requests playwright psycopg2-binary --break-system-packages
+RUN apt-get install -y python3.10 python3-pip python3-flask 
+RUN pip install flask_caching requests playwright psycopg2-binary pyquery --break-system-packages
 
 # PostgreSQL
-RUN apt-get install -y postgresql postgresql-contrib
+RUN apt-get install -y postgresql postgresql-contrib postgresql-client
 
 # Clone the GitHub repository
 RUN git clone https://github.com/relihimas/cial_dnb_products_assignment_python_teste.git /app
-  
-# Expose the PostgreSQL port
+
 EXPOSE 8000
 
-CMD ["/app/app/init_db.sh", "&&", "nohup", "python3", "/app/app/stock_server.py"]
+CMD nohup python3 ./app/app/stock_server.py

@@ -10,7 +10,7 @@ logger = definelog()
 app = Flask(__name__)
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
-@app.route('/stock/<stock_symbol>', methods=['GET'])
+@app.route('/stock/<string:stock_symbol>', methods=['GET'])
 @cache.cached(timeout=60, key_prefix='stock_data')
 def get_stock(stock_symbol):
     try:
@@ -26,7 +26,7 @@ def get_stock(stock_symbol):
         return jsonify({'error': 'An internal error occurred'}), 500
 
 
-@app.route('/stock/<stock_symbol>', methods=['POST'])
+@app.route('/stock/<string:stock_symbol>', methods=['POST'])
 def update_stock(stock_symbol):
     try:
         if not request.json or 'amount' not in request.json:
@@ -55,7 +55,7 @@ if __name__ == '__main__':
         print("Erro ao iniciar o PostgreSQL:")
         print(e.stderr)
     
-    print("Initializing - version 4.0")
+    print("Initializing - version 5.0")
     app.run(debug=False, host='0.0.0.0', port=cnt.port_server)
 
 
