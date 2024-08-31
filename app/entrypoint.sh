@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-su -u postgres psql <<EOF
+su postgres psql <<EOF
 ALTER USER postgres PASSWORD 'postgres';
 CREATE DATABASE cial;
 \c cial
