@@ -1,7 +1,7 @@
 key_polygon='bmN7i7CrzrpKqFvgbB1fEaztCwZKSUjJ'
 dbname='cial'
-user='stock_user'
-password='stock_password'
+user='postgres'
+password='postgres'
 host='localhost'
 port='5432'
 insert_query="""INSERT INTO stock (stock, amount, created_on, updated_at) VALUES (%s, %s, %s, NOW() AT TIME ZONE 'America/Sao_Paulo')"""
