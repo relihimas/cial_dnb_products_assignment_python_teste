@@ -125,6 +125,9 @@ The main funciton will redirect the actions based on the HTTP Method requested:
 
 - If the insert was successfull you will received a 201 code.
 
+Postgres data:
+![image](https://github.com/user-attachments/assets/75d492b9-db77-43ba-8a74-065a4eca770c)
+
 ## Unit Tests
 
 On the folder 'tests' you will find performed tests to check our functionality.
