@@ -29,6 +29,8 @@ def stock_martketwatch(stock):
         resp = session.get(url, headers=header, verify=False)
         resp = pq(resp.text)
 
+        logger.info(resp)
+
         company_name = resp('h1.company__name').text()
 
         comp_name = []

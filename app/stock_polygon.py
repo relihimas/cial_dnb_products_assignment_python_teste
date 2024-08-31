@@ -91,6 +91,9 @@ def polygon(stock):
             logger.error(erro)
             raise Exception(erro)
         
+        logger.info("Polygon data extracted successfully")
+        logger.info(response.json())
+
         return True, response.json()
 
     except Exception as e:
