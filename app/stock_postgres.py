@@ -69,7 +69,7 @@ def check_stock(stock):
             return result
     
     except Exception as e:
-        return e
+        return None
 
 def insert_amount(stock, amount):
     
