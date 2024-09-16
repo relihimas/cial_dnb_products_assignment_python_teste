@@ -12,6 +12,12 @@ def verificar_fim_de_semana(data):
     try:
 
         data_obj = datetime.strptime(data, "%Y-%m-%d")
+        
+        if data_obj.weekday() == 0:
+            
+            data_obj = data_obj - timedelta(days=3)
+
+            return data_obj
 
         if data_obj.weekday() == 5:
             
@@ -30,7 +36,7 @@ def verificar_fim_de_semana(data):
             raise Exception(erro)
         else:
             logger.info("Informed date is between Monday and Friday")
-            return True
+            return data_obj
 
     except Exception as e:
         logger.error(e)
@@ -72,10 +78,9 @@ def polygon(stock):
         stock = stock.upper()
 
         hoje = datetime.now()
-        ontem = hoje - timedelta(days=1)
-        data_uso = ontem.strftime('%Y-%m-%d')
-        ajuste_data = formatador_data(data_uso)
-        verificar_fim_de_semana(ajuste_data)
+        data_uso = hoje.strftime('%Y-%m-%d')
+        ajuste_data = verificar_fim_de_semana(data_uso)
+        ajuste_data = ajuste_data.strftime('%Y-%m-%d')
 
         url_polygon = f"https://api.polygon.io/v1/open-close/{stock}/{ajuste_data}"
 
